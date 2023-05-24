@@ -1,6 +1,6 @@
 /**
  * @typedef {{ cid: import('./link').AnyLink, bytes: Uint8Array }} AnyBlock
- * @typedef {{ get: (link: import('./link').AnyLink) => Promise<Uint8Array | undefined> }} BlockFetcher
+ * @typedef {{ get: (link: import('./link').AnyLink) => Promise<Uint8Array> }} BlockFetcher
  */
 /** @implements {BlockFetcher} */
 export class MemoryBlockstore implements BlockFetcher {
@@ -10,9 +10,9 @@ export class MemoryBlockstore implements BlockFetcher {
     constructor(blocks?: AnyBlock[] | undefined);
     /**
      * @param {import('./link').AnyLink} cid
-     * @returns {Promise<Uint8Array | undefined>}
+     * @returns {Promise<Uint8Array>}
      */
-    get(cid: import('./link').AnyLink): Promise<Uint8Array | undefined>;
+    get(cid: import('./link').AnyLink): Promise<Uint8Array>;
     /**
      * @param {import('./link').AnyLink} cid
      * @param {Uint8Array} bytes
@@ -37,7 +37,7 @@ export class MultiBlockFetcher {
     /** @param {BlockFetcher[]} fetchers */
     constructor(...fetchers: BlockFetcher[]);
     /** @param {import('./link').AnyLink} link */
-    get(link: import('./link').AnyLink): Promise<Uint8Array | undefined>;
+    get(link: import('./link').AnyLink): Promise<Uint8Array>;
     #private;
 }
 export type AnyBlock = {
@@ -45,6 +45,6 @@ export type AnyBlock = {
     bytes: Uint8Array;
 };
 export type BlockFetcher = {
-    get: (link: import('./link').AnyLink) => Promise<Uint8Array | undefined>;
+    get: (link: import('./link').AnyLink) => Promise<Uint8Array>;
 };
 //# sourceMappingURL=block.d.ts.map
